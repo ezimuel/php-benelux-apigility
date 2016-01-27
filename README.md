@@ -1,4 +1,5 @@
-# php-benelux-apigility
+# PHP Benelux 2016 Apigility tutorial
+
 Hands on part of the "Develop RESTful API in PHP using Apigility" tutorial at [PHP Benelux 2016](https://conference.phpbenelux.eu/2016/talk/develop-restful-api-in-php-using-apigility/).
 
 Installation
@@ -26,7 +27,7 @@ checkout the specific branch. For instance, for the exercise 1 execute the
 following command:
 
  ```console
- git checkout exercise/1
+ git checkout -b exercise/1 origin/exercise/1
  ```
 
  All the exercises are stored in the `exercise/*` branches.
