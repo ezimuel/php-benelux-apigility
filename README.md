@@ -5,7 +5,7 @@ Hands on part of the "Develop RESTful API in PHP using Apigility" tutorial at [P
 Installation
 ------------
 
-You can install the tutorial using composer:
+You can install the tutorial using [composer](https://getcomposer.org/):
 
 ```console
 $ composer install
