@@ -5,7 +5,12 @@ use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Paginator\Adapter\DbTableGateway;
+use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
+use Zend\Db\Sql\Sql;
+use Conference\V1\Rest\Talk\TalkEntity;
+use Conference\V1\Rest\Talk\TalkCollection;
+use Zend\Stdlib\Hydrator\ArraySerializable;
 
 
 class SpeakerMapper
@@ -29,7 +34,24 @@ class SpeakerMapper
     public function getSpeaker($speakerId)
     {
         $rowset = $this->table->select(array('id' => $speakerId));
-        return $rowset->current();
+        $speaker = $rowset->current();
+
+        // get the spakers from the talks_speakers table
+        $sql = new Sql($this->table->adapter);
+        $select = $sql->select();
+        $select->from('talks')
+               ->join('talks_speakers', 'talks_speakers.talk_id = talks.id')
+               ->where(array('talks_speakers.speaker_id' => $speakerId));
+
+        // build the SpeakerCollection based on $select
+        $resultSet = new HydratingResultSet(
+            new ArraySerializable(),
+            new TalkEntity()
+        );
+        $paginatorAdapter = new DbSelect($select, $this->table->adapter, $resultSet);
+        $speaker->talks = new TalkCollection($paginatorAdapter);
+
+        return $speaker;
     }
 
     public function addSpeaker($speaker)
@@ -81,7 +103,7 @@ class SpeakerMapper
       if (isset($object->company)) {
         $data['company'] = $object->company;
       }
-      if (isset($object->url_company)) {
+      if (isset($object->url)) {
         $data['url'] = $object->url;
       }
       if (isset($object->twitter)) {

@@ -5,7 +5,12 @@ use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Paginator\Adapter\DbTableGateway;
+use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
+use Zend\Db\Sql\Sql;
+use Conference\V1\Rest\Speaker\SpeakerEntity;
+use Conference\V1\Rest\Speaker\SpeakerCollection;
+use Zend\Stdlib\Hydrator\ArraySerializable;
 
 class TalkMapper
 {
@@ -29,6 +34,22 @@ class TalkMapper
     {
         $rowset = $this->table->select(array('id' => $talkId));
         $talk = $rowset->current();
+
+        // get the spakers from the talks_speakers table
+        $sql = new Sql($this->table->adapter);
+        $select = $sql->select();
+        $select->from('speakers')
+               ->join('talks_speakers', 'talks_speakers.speaker_id = speakers.id')
+               ->where(array('talks_speakers.talk_id' => $talkId));
+
+        // build the SpeakerCollection based on $select
+        $resultSet = new HydratingResultSet(
+            new ArraySerializable(),
+            new SpeakerEntity()
+        );
+        $paginatorAdapter = new DbSelect($select, $this->table->adapter, $resultSet);
+        $talk->speakers = new SpeakerCollection($paginatorAdapter);
+
         return $talk;
     }
 

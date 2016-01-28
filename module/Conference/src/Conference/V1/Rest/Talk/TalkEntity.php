@@ -9,6 +9,7 @@ class TalkEntity
   public $day;
   public $start_time;
   public $end_time;
+  public $speakers;
 
   public function getArrayCopy()
   {
@@ -18,7 +19,8 @@ class TalkEntity
       'abstract'   => $this->abstract,
       'day'        => $this->day,
       'start_time' => $this->start_time,
-      'end_time'   => $this->end_time
+      'end_time'   => $this->end_time,
+      'speakers'   => $this->speakers
     );
   }
 
@@ -30,5 +32,6 @@ class TalkEntity
     $this->day        = $array['day'];
     $this->start_time = $array['start_time'];
     $this->end_time   = $array['end_time'];
+    $this->speakers   = $array['speakers'];
   }
 }
