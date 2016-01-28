@@ -44,10 +44,10 @@ return array(
                 0 => 'GET',
                 1 => 'PATCH',
                 2 => 'DELETE',
-                3 => 'POST',
             ),
             'collection_http_methods' => array(
                 0 => 'GET',
+                1 => 'POST',
             ),
             'collection_query_whitelist' => array(),
             'page_size' => 25,
@@ -65,10 +65,10 @@ return array(
                 0 => 'GET',
                 1 => 'PATCH',
                 2 => 'DELETE',
-                3 => 'POST',
             ),
             'collection_http_methods' => array(
                 0 => 'GET',
+                1 => 'POST',
             ),
             'collection_query_whitelist' => array(),
             'page_size' => 25,
@@ -133,5 +133,17 @@ return array(
                 'is_collection' => true,
             ),
         ),
+    ),
+    'zf-content-validation' => array(
+        'Conference\\V1\\Rest\\Speaker\\Controller' => array(
+            'input_filter' => 'Conference\\V1\\Rest\\Speaker\\Validator',
+        ),
+        'Conference\\V1\\Rest\\Talk\\Controller' => array(
+            'input_filter' => 'Conference\\V1\\Rest\\Talk\\Validator',
+        ),
+    ),
+    'input_filter_specs' => array(
+        'Conference\\V1\\Rest\\Speaker\\Validator' => array(),
+        'Conference\\V1\\Rest\\Talk\\Validator' => array(),
     ),
 );
