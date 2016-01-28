@@ -143,7 +143,50 @@ return array(
         ),
     ),
     'input_filter_specs' => array(
-        'Conference\\V1\\Rest\\Speaker\\Validator' => array(),
-        'Conference\\V1\\Rest\\Talk\\Validator' => array(),
+        'Conference\\V1\\Rest\\Speaker\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'name',
+                'description' => 'Name of the speaker',
+            ),
+            1 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'title',
+                'description' => 'job title',
+            ),
+            2 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'company',
+                'description' => 'company employer',
+            ),
+        ),
+        'Conference\\V1\\Rest\\Talk\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'title',
+            ),
+            1 => array(
+                'required' => true,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\Validator\\Date',
+                        'options' => array(
+                            'format' => 'Y-m-d',
+                        ),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'day',
+                'error_message' => 'The day should be in the format yyyy-mm-dd',
+            ),
+        ),
     ),
 );
