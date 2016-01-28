@@ -1,2 +1,7 @@
 composer.lock
 /vendor
+config/development.config.php
+config/autoload/local.php
+config/autoload/*.local.php
+data/cache/*
+!data/cache/.gitkeep

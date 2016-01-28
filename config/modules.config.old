@@ -21,5 +21,4 @@ return array(
     'ZF\\Rest',
     'ZF\\Rpc',
     'ZF\\Versioning',
-    'Conference',
 );
