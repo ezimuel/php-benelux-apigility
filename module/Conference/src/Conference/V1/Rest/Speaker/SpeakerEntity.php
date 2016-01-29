@@ -17,7 +17,7 @@ class SpeakerEntity
         'name'    => $this->name,
         'title'   => $this->title,
         'company' => $this->company,
-        'url'     => $this->url_company,
+        'url'     => $this->url,
         'twitter' => $this->twitter
       );
     }
