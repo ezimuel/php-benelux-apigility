@@ -32,6 +32,10 @@ class TalkEntity
     $this->day        = $array['day'];
     $this->start_time = $array['start_time'];
     $this->end_time   = $array['end_time'];
-    $this->speakers   = $array['speakers'];
+    
+    // Speakers is only available when fetching a single record.
+    if (!empty($array['speakers'])) {
+      $this->speakers   = $array['speakers'];
+    }
   }
 }
