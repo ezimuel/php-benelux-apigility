@@ -32,6 +32,10 @@ class SpeakerEntity
       $this->company = $array['company'];
       $this->url     = $array['url'];
       $this->twitter = $array['twitter'];
-      $this->talks   = $array['talks'];
+      
+      // Talks is only available when loading a single item. Not on overview.
+      if (isset($array['talks'])) {
+        $this->talks   = $array['talks'];
+      }
     }
 }
